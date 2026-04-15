@@ -1,0 +1,260 @@
+.parent {
+  padding-top: calc(var(--nav-height) + 30px);
+  padding-bottom: 40px;
+}
+
+.parent__header {
+  margin-bottom: 28px;
+}
+
+.parent__title {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.parent__subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.parent__layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.parent__left {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Student Card */
+.parent__student-card {
+  padding: 24px;
+}
+
+.parent__student-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.parent__student-avatar {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.parent__student-header h3 {
+  font-size: 1.15rem;
+}
+
+.parent__student-header p {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.parent__student-header .badge {
+  margin-left: auto;
+}
+
+.parent__student-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.parent__detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text-secondary);
+}
+
+.parent__detail svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.parent__detail-label {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 2px;
+}
+
+.parent__detail-value {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+}
+
+/* ETA Card */
+.parent__eta-card {
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(0, 212, 170, 0.05), rgba(99, 102, 241, 0.05));
+}
+
+.parent__eta-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.parent__eta-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.parent__eta-time {
+  text-align: center;
+}
+
+.parent__eta-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.parent__eta-label {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.parent__eta-colon {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary);
+  align-self: flex-start;
+  margin-top: 8px;
+}
+
+.parent__eta-progress {
+  margin-bottom: 16px;
+}
+
+.parent__eta-progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.parent__eta-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+.parent__eta-stops {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.parent__safety-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  background: rgba(34, 197, 94, 0.08);
+  border-radius: var(--radius-md);
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+}
+
+/* Map */
+.parent__map-card {
+  padding: 20px;
+}
+
+.parent__map-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+}
+
+/* Messages */
+.parent__right {
+  display: flex;
+  flex-direction: column;
+}
+
+.parent__messages-card {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.parent__messages-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.parent__messages-header h3 {
+  font-size: 1.05rem;
+  flex: 1;
+}
+
+.parent__messages-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+}
+
+.parent__messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.parent__emergency {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-color);
+}
+
+@media (max-width: 768px) {
+  .parent__layout {
+    grid-template-columns: 1fr;
+  }
+  .parent__student-details {
+    grid-template-columns: 1fr;
+  }
+  .parent__eta-num {
+    font-size: 2.5rem;
+  }
+}

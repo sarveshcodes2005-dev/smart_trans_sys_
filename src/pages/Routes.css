@@ -1,0 +1,260 @@
+.routes {
+  padding-top: calc(var(--nav-height) + 30px);
+  padding-bottom: 40px;
+}
+
+.routes__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 28px;
+}
+
+.routes__title {
+  font-size: 2rem;
+  margin-bottom: 4px;
+}
+
+.routes__subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Progress */
+.routes__progress {
+  margin-bottom: 24px;
+  padding: 20px;
+}
+
+.routes__progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.routes__progress-header span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.routes__progress-percent {
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.routes__progress-bar {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.routes__progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 3px;
+  transition: width 0.1s linear;
+}
+
+.routes__progress-steps {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+.routes__progress-steps .active {
+  color: var(--primary);
+}
+
+/* Maps */
+.routes__maps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.routes__map-card {
+  padding: 20px;
+}
+
+.routes__map-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.routes__map-title h3 {
+  font-size: 1rem;
+}
+
+.routes__map-badge {
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.routes__map-badge--before {
+  background: rgba(239, 68, 68, 0.15);
+  color: var(--danger);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.routes__map-badge--after {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--success);
+  border: 1px solid rgba(34, 197, 94, 0.2);
+}
+
+.routes__map-stats {
+  display: flex;
+  gap: 20px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+}
+
+.routes__map-stats span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Comparisons */
+.routes__comparisons {
+  margin-bottom: 28px;
+}
+
+.routes__comparisons h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.routes__comp-card {
+  text-align: center;
+  padding: 24px 20px;
+}
+
+.routes__comp-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.routes__comp-values {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.routes__comp-before {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.routes__comp-after {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.routes__comp-improvement {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.75rem;
+  color: var(--success);
+  font-weight: 600;
+}
+
+/* Algorithm */
+.routes__algorithm {
+  padding: 28px;
+}
+
+.routes__algorithm h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.routes__algo-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.routes__algo-step {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.routes__algo-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--bg-primary);
+  flex-shrink: 0;
+}
+
+.routes__algo-step h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.routes__algo-step p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+  .routes__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  .routes__maps {
+    grid-template-columns: 1fr;
+  }
+  .routes__progress-steps {
+    display: none;
+  }
+}
