@@ -174,7 +174,7 @@ export default function Parent() {
                 style={{ height: '250px', borderRadius: 'var(--radius-md)', marginTop: '12px' }}
                 zoomControl={false}
               >
-                <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+                <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
                 <Marker position={[busPos.lat, busPos.lng]} icon={busIcon}>
                   <Popup>Bus {studentBus.id} — {studentBus.driver}</Popup>
                 </Marker>

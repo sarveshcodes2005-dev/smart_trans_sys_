@@ -25,6 +25,8 @@ const schoolIcon = L.divIcon({
   iconAnchor: [14, 14],
 });
 
+import { supabase } from '../lib/supabaseClient';
+
 function MapFlyTo({ center }) {
   const map = useMap();
   useEffect(() => {
@@ -38,8 +40,48 @@ export default function Tracking() {
   const [selectedBus, setSelectedBus] = useState(null);
   const [flyTo, setFlyTo] = useState(null);
   const [filter, setFilter] = useState('all');
+  const [liveBuses, setLiveBuses] = useState(buses); // Store buses in state to allow live updates
 
-  const filteredBuses = buses.filter(bus => {
+  // Supabase Realtime GPS Subscription
+  useEffect(() => {
+    // 1. Initial fetch of known locations
+    supabase.from('bus_locations').select('*').then(({ data }) => {
+      if (data) {
+        setLiveBuses(prev => prev.map(bus => {
+          const liveData = data.find(d => d.bus_id === bus.id);
+          if (liveData) {
+            const newRoute = [...bus.route];
+            newRoute[bus.currentStop] = { ...newRoute[bus.currentStop], lat: liveData.lat, lng: liveData.lng };
+            return { ...bus, speed: Math.round(liveData.speed), route: newRoute };
+          }
+          return bus;
+        }));
+      }
+    });
+
+    // 2. Subscribe to realtime updates
+    const channel = supabase
+      .channel('live-tracking')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'bus_locations' }, (payload) => {
+        const liveData = payload.new;
+        setLiveBuses(prev => prev.map(bus => {
+          if (bus.id === liveData.bus_id) {
+            const newRoute = [...bus.route];
+            // Update the visual marker's position
+            newRoute[bus.currentStop] = { ...newRoute[bus.currentStop], lat: liveData.lat, lng: liveData.lng };
+            return { ...bus, speed: Math.round(liveData.speed), route: newRoute };
+          }
+          return bus;
+        }));
+      })
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  const filteredBuses = liveBuses.filter(bus => {
     const matchesSearch = bus.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
       bus.school.toLowerCase().includes(searchQuery.toLowerCase()) ||
       bus.driver.toLowerCase().includes(searchQuery.toLowerCase());
@@ -122,7 +164,7 @@ export default function Tracking() {
         >
           <TileLayer
             attribution='&copy; CARTO'
-            url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
           />
           <MapFlyTo center={flyTo} />
 

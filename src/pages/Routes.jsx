@@ -129,7 +129,7 @@ export default function Routes() {
               <h3>Original Route</h3>
             </div>
             <MapContainer center={[19.2770, 72.8630]} zoom={14} style={{ height: '350px', borderRadius: 'var(--radius-md)' }} zoomControl={false}>
-              <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+              <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
               <Polyline positions={originalRoute} pathOptions={{ color: '#EF4444', weight: 4, opacity: 0.8 }} />
               {originalRoute.map((pos, i) => (
                 <Circle key={i} center={pos} radius={30} pathOptions={{ color: '#EF4444', fillColor: '#EF4444', fillOpacity: 0.3, weight: 1 }} />
@@ -156,7 +156,7 @@ export default function Routes() {
               <h3>Optimized Route</h3>
             </div>
             <MapContainer center={[19.2770, 72.8630]} zoom={14} style={{ height: '350px', borderRadius: 'var(--radius-md)' }} zoomControl={false}>
-              <TileLayer url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png" />
+              <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
               {isOptimized && (
                 <>
                   <Polyline positions={optimizedRoute} pathOptions={{ color: '#22C55E', weight: 4, opacity: 0.8 }} />

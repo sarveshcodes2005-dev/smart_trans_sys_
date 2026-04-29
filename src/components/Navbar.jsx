@@ -1,22 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Bus, LayoutDashboard, MapPin, Route, Users, Info, Menu, X } from 'lucide-react';
+import { Bus, Menu, X, LogOut, LogIn, User } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+import { getRoleConfig, PUBLIC_ROUTES } from '../config/roleConfig';
 import './Navbar.css';
-
-const navLinks = [
-  { path: '/', label: 'Home', icon: Bus },
-  { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
-  { path: '/tracking', label: 'Live Tracking', icon: MapPin },
-  { path: '/routes', label: 'Routes', icon: Route },
-  { path: '/parent', label: 'Parent Portal', icon: Users },
-  { path: '/about', label: 'About', icon: Info },
-];
 
 export default function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, profile, signOut } = useAuth();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Get nav items based on user's role, or show public-only items
+  const navLinks = isAuthenticated && profile
+    ? getRoleConfig(profile.role).navItems
+    : [
+        { path: '/', label: 'Home', icon: Bus },
+        { path: '/about', label: 'About', icon: Bus },
+      ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -27,6 +30,17 @@ export default function Navbar() {
   useEffect(() => {
     setMobileOpen(false);
   }, [location]);
+
+  async function handleLogout() {
+    try {
+      await signOut();
+      navigate('/login', { replace: true });
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  }
+
+  const roleConfig = profile ? getRoleConfig(profile.role) : null;
 
   return (
     <nav className={`navbar ${scrolled ? 'navbar--scrolled' : ''}`}>
@@ -58,6 +72,33 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Right side — auth info */}
+        <div className="navbar__auth">
+          {isAuthenticated && profile ? (
+            <div className="navbar__user-section">
+              <div className="navbar__user-info">
+                <div className="navbar__user-avatar" style={{ borderColor: roleConfig?.color || 'var(--primary)' }}>
+                  {profile.full_name?.charAt(0)?.toUpperCase() || '?'}
+                </div>
+                <div className="navbar__user-details">
+                  <span className="navbar__user-name">{profile.full_name}</span>
+                  <span className="navbar__user-role" style={{ color: roleConfig?.color || 'var(--primary)' }}>
+                    {roleConfig?.label || profile.role}
+                  </span>
+                </div>
+              </div>
+              <button className="navbar__logout-btn" onClick={handleLogout} title="Sign Out">
+                <LogOut size={18} />
+              </button>
+            </div>
+          ) : (
+            <Link to="/login" className="btn btn-primary navbar__login-btn">
+              <LogIn size={16} />
+              <span>Sign In</span>
+            </Link>
+          )}
+        </div>
+
         <button
           className="navbar__mobile-toggle"
           onClick={() => setMobileOpen(!mobileOpen)}
@@ -86,6 +127,34 @@ export default function Navbar() {
                 <span>{label}</span>
               </Link>
             ))}
+
+            {/* Mobile auth */}
+            <div className="navbar__mobile-auth">
+              {isAuthenticated && profile ? (
+                <>
+                  <div className="navbar__mobile-user">
+                    <div className="navbar__user-avatar" style={{ borderColor: roleConfig?.color || 'var(--primary)' }}>
+                      {profile.full_name?.charAt(0)?.toUpperCase() || '?'}
+                    </div>
+                    <div>
+                      <span className="navbar__user-name">{profile.full_name}</span>
+                      <span className="navbar__user-role" style={{ color: roleConfig?.color }}>
+                        {roleConfig?.label}
+                      </span>
+                    </div>
+                  </div>
+                  <button className="navbar__mobile-logout" onClick={handleLogout}>
+                    <LogOut size={16} />
+                    Sign Out
+                  </button>
+                </>
+              ) : (
+                <Link to="/login" className="navbar__mobile-link">
+                  <LogIn size={18} />
+                  <span>Sign In</span>
+                </Link>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
